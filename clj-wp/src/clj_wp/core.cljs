@@ -1,10 +1,14 @@
 (ns clj-wp.core
   (:import
     goog
-    [goog object]))
+    [goog object])
+  (:require
+    [clojure.pprint :refer [pprint]]))
 
 (defn prn-php [s]
   (js/print (pr-str s)))
+(defn pprint-php [s]
+  (-> s pprint with-out-str js/print))
 
 (defn v8->clj [m]
   (if (goog.isObject m)
@@ -13,6 +17,6 @@
             [(keyword k) (v8->clj (object.get m k))]))
     m))
 
-(prn-php
+(pprint-php
   (v8->clj js/PHP))
 (js/exit)
