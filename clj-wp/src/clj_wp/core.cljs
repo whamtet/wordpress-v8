@@ -13,10 +13,20 @@
 (defn v8->clj [m]
   (if (goog.isObject m)
     (into {}
-          (for [k (object.getKeys m)]
+          (for [k (object.getKeys m)
+                :when (not= "v8js" k)] ;prevent circular references
             [(keyword k) (v8->clj (object.get m k))]))
     m))
 
-(pprint-php
-  (v8->clj js/PHP))
+(defn invoke [f & args]
+  (js/PHP.foo.__call "call" #js [f (clj->js args)]))
+
+(defn ^:export tt []
+  (invoke "barber" "fucka"))
+
+(defn ^:export print-globals []
+  (pprint-php
+    (v8->clj js/PHP))
+  (js/exit))
+
 (js/exit)

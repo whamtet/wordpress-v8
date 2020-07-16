@@ -12,4 +12,4 @@ Start docker in a separate terminal.
 docker-compose up
 ```
 
-Visit http://localhost:8000/matty.php
+Visit http://localhost:8000/matt.php
