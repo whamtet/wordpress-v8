@@ -14,7 +14,14 @@ function barber($type)
 function set_v8() {
   global $v8js;
   try {
-      $v8js = new V8Js();
+      $isProd = TRUE;
+      $dumpSnapshot = FALSE;
+      if ($isProd)
+      {
+        $v8js = new V8Js('PHP', array(), array(), TRUE, file_get_contents('snapshot'));
+      } else {
+        $v8js = new V8Js();
+      }
       $v8js->foo = new Foo;
       $v8js->globals = $GLOBALS;
 
@@ -23,7 +30,18 @@ function set_v8() {
       // This prints "I'm a function!"
       // $v8->executeString('PHP.foo.__call("bar", ["function"]);');
 
-      $v8js->executeString(file_get_contents('clj_wp.js'));
+      if(!$isProd)
+      {
+        $v8js->executeString(file_get_contents('clj_wp.js'));
+      }
+      if($dumpSnapshot)
+      {
+        $snapshot = V8Js::createSnapshot(file_get_contents('clj_wp.js'));
+//         var_dump($snapshot);
+        $myfile = fopen("snapshot", "w");
+        fwrite($myfile, $snapshot);
+        fclose($myfile);
+      }
     } catch (Exception $e) {
       echo $e->getMessage();
     }
@@ -40,7 +58,7 @@ function v8($func) {
     echo $e->getMessage();
   }
 }
-v8('clj_wp.core.tt()');
+v8('clj_wp.core.print_globals()');
 ?>
   </pre>
 done

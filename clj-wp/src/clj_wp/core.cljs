@@ -22,11 +22,12 @@
   (js/PHP.foo.__call "call" #js [f (clj->js args)]))
 
 (defn ^:export tt []
-  (invoke "barber" "fucka"))
+  (invoke "barber" "hello"))
 
 (defn ^:export print-globals []
   (pprint-php
     (v8->clj js/PHP))
   (js/exit))
 
-(js/exit)
+
+;(js/exit)
