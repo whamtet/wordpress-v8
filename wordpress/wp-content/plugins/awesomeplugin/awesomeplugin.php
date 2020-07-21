@@ -36,7 +36,7 @@ function set_v8() {
       // This prints "I'm a function!"
       // $v8->executeString('PHP.foo.__call("bar", ["function"]);');
 
-      if(!$isProd)
+      if(!$isProd || $dumpSnapshot)
       {
         $v8js->executeString(file_get_contents('/app/clj_wp.js'));
       }
