@@ -3,7 +3,9 @@
     goog
     [goog object])
   (:require
-    [clojure.pprint :refer [pprint]]))
+    [clojure.pprint :refer [pprint]])
+  (:require-macros
+    [clj-wp.core :refer [defargs]]))
 
 (defn- prn-php-abstract [print-f o]
   (-> o pr-str print-f))
@@ -41,6 +43,7 @@
   (js/PHP.foo.__call "call" #js [f (clj->js (or args ()))]))
 
 (defn ^:export tt []
+  (log "fuck") #_
   (-> "GET_POSTS"
       invoke
       v8->clj
@@ -50,4 +53,5 @@
   (log
     (v8->clj js/PHP)))
 
-;(js/exit)
+(defargs yy [x]
+  (log x))

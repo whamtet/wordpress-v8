@@ -59,9 +59,22 @@ function v8($func) {
     set_v8();
   }
   try {
-    $v8js->executeString($func);
+    return $v8js->executeString($func);
   } catch (Exception $e) {
     error_log($e->getMessage());
   }
 }
+function v8_args($func, $args) {
+  global $v8js;
+  if (!isset($v8js)) {
+    set_v8();
+  }
+  try {
+    $v8js->args = $args;
+    return $v8js->executeString($func . '()');
+  } catch (Exception $e) {
+    error_log($e->getMessage());
+  }
+}
+v8_args('clj_wp.core.yy', array(1));
 ?>
