@@ -20,7 +20,7 @@ class Foo {
 function set_v8() {
   global $v8js;
   try {
-      $isProd = FALSE;
+      $isProd = $_ENV["ENV"] == 'prod';
       $dumpSnapshot = FALSE;
       if ($isProd)
       {
