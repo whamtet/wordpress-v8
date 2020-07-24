@@ -21,7 +21,7 @@ services:
      ports:
        - "8000:80"
      volumes:
-          - ./awesomeplugin:/app/wp-content/plugins/awesomeplugin
+          - ./wordpress_v8:/app/wp-content/plugins/wordpress_v8
      restart: always
      environment:
        WORDPRESS_DB_HOST: db:3306

@@ -11,7 +11,7 @@ scripts/watch
 
 Start docker in a separate terminal.
 ```sh
-https://wordpress.org/latest.tar.gz
+wget https://wordpress.org/latest.tar.gz
 docker-compose up
 ```
 
