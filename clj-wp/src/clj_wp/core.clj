@@ -1,6 +1,6 @@
 (ns clj-wp.core)
 
-(defmacro defargs [name args & body]
+(defmacro defphp [name args & body]
   ;; we'll attach everything to global js ns
   `(do
      (set!

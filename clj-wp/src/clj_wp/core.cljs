@@ -5,7 +5,7 @@
   (:require
     [clojure.pprint :refer [pprint]])
   (:require-macros
-    [clj-wp.core :refer [defargs]]))
+    [clj-wp.core :refer [defphp]]))
 
 (defn- prn-php-abstract [print-f o]
   (-> o pr-str print-f))
@@ -45,5 +45,5 @@
 (defn v8-assign [func-name]
   (js/PHP.foo.__call "v8_assign" #js [func-name]))
 
-(defargs yy [:as x]
+(defphp yy [:as x]
   (log x))
