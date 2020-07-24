@@ -22,7 +22,6 @@ services:
        - "8000:80"
      volumes:
           - ./wordpress_v8:/app/wp-content/plugins/wordpress_v8
-     restart: always
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress

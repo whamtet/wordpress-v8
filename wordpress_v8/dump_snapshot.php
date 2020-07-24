@@ -4,3 +4,4 @@ $myfile = fopen("/tmp/snapshot", "w");
 fwrite($myfile, $snapshot);
 fclose($myfile);
 ?>
+snapshot created!
