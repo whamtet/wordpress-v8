@@ -16,6 +16,14 @@ class Foo {
   function log($to_log) {
     syslog(LOG_INFO, $to_log);
   }
+  function v8_assign($funcName) {
+    $toEval = <<<TXT
+    function $funcName() {
+    return v8_args('$funcName', func_get_args());
+    }
+    TXT;
+    eval($toEval);
+  }
 }
 function set_v8() {
   global $v8js;
@@ -30,11 +38,6 @@ function set_v8() {
       }
       $v8js->foo = new Foo;
       $v8js->globals = $GLOBALS;
-
-      // This prints 'bar'
-      // $v8->executeString('print(PHP.foo.$bar, "\n");');
-      // This prints "I'm a function!"
-      // $v8->executeString('PHP.foo.__call("bar", ["function"]);');
 
       if(!$isProd || $dumpSnapshot)
       {
@@ -76,5 +79,6 @@ function v8_args($func, $args) {
     error_log($e->getMessage());
   }
 }
-v8_args('clj_wp.core.yy', array(1));
+// need to actually define stuff
+set_v8();
 ?>

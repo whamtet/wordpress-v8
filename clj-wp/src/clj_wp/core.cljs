@@ -42,16 +42,8 @@
 (defn invoke [f & args]
   (js/PHP.foo.__call "call" #js [f (clj->js (or args ()))]))
 
-(defn ^:export tt []
-  (log "fuck") #_
-  (-> "GET_POSTS"
-      invoke
-      v8->clj
-      log))
+(defn v8-assign [func-name]
+  (js/PHP.foo.__call "v8_assign" #js [func-name]))
 
-(defn ^:export print-globals []
-  (log
-    (v8->clj js/PHP)))
-
-(defargs yy [x]
+(defargs yy [:as x]
   (log x))
