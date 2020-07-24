@@ -35,24 +35,12 @@ function set_v8() {
         $v8js = new V8Js('PHP', array(), array(), TRUE, file_get_contents('/tmp/snapshot'));
       } else {
         $v8js = new V8Js();
+        $v8js->executeString(file_get_contents(__DIR__ . '/clj_wp.js'));
       }
       $v8js->foo = new AwesomeHelper;
       $v8js->globals = $GLOBALS;
-
-      if(!$isProd || $dumpSnapshot)
-      {
-        $v8js->executeString(file_get_contents('/app/clj_wp.js'));
-      }
       //we need to actually export the symbols back to php
       $v8js->executeString('clj_wp.main.exxx()');
-      if($dumpSnapshot)
-      {
-        $snapshot = V8Js::createSnapshot(file_get_contents('/app/clj_wp.js'));
-//         var_dump($snapshot);
-        $myfile = fopen("/tmp/snapshot", "w");
-        fwrite($myfile, $snapshot);
-        fclose($myfile);
-      }
     } catch (Exception $e) {
       error_log($e->getMessage());
     }
