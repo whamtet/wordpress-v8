@@ -43,6 +43,8 @@ function set_v8() {
       {
         $v8js->executeString(file_get_contents('/app/clj_wp.js'));
       }
+      //we need to actually export the symbols back to php
+      $v8js->executeString('clj_wp.main.exxx()');
       if($dumpSnapshot)
       {
         $snapshot = V8Js::createSnapshot(file_get_contents('/app/clj_wp.js'));
