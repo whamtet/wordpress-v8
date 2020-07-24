@@ -9,7 +9,7 @@
    Author URI: https://github.com/whamtet
    License: GPL2
    */
-class Foo {
+class AwesomeHelper {
   function call($callback, $param_arr) {
     return call_user_func_array($callback, $param_arr);
   }
@@ -36,7 +36,7 @@ function set_v8() {
       } else {
         $v8js = new V8Js();
       }
-      $v8js->foo = new Foo;
+      $v8js->foo = new AwesomeHelper;
       $v8js->globals = $GLOBALS;
 
       if(!$isProd || $dumpSnapshot)
