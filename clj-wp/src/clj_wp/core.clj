@@ -9,3 +9,10 @@
          (let [~args (clj-wp.core/v8->clj js/PHP.args)]
            ~@body)))
      (clj-wp.core/v8-assign ~(str name))))
+
+(defmacro definvoke [sym]
+  `(def ~sym (fn [& args] (apply clj-wp.core/invoke ~(str sym) args))))
+(defmacro definvokes [& syms]
+  `(do
+     ~@(for [sym syms]
+         `(definvoke ~sym))))
