@@ -15,7 +15,7 @@
        (map clj-wp.core/v8-assign ~(deref to-export)))))
 
 (defmacro definvoke [sym]
-  `(def ~sym (fn [& args] (apply clj-wp.core/invoke ~(str sym) args))))
+  `(def ~sym (fn [& args#] (apply clj-wp.core/invoke ~(-> sym str (.replace "-" "_")) args#))))
 (defmacro definvokes [& syms]
   `(do
      ~@(for [sym syms]
