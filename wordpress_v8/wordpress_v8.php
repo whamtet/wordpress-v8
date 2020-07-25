@@ -29,7 +29,6 @@ function set_v8() {
   global $v8js;
   try {
       $isProd = $_ENV["ENV"] == 'prod';
-      $dumpSnapshot = FALSE;
       if ($isProd)
       {
         $v8js = new V8Js('PHP', array(), array(), TRUE, file_get_contents('/tmp/snapshot'));
