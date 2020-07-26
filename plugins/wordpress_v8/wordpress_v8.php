@@ -12,9 +12,6 @@ class AwesomeHelper {
   function call($callback, $param_arr) {
     return call_user_func_array($callback, $param_arr);
   }
-  function log($to_log) {
-    syslog(LOG_INFO, $to_log);
-  }
   function ev($s) {
     return eval($s);
   }

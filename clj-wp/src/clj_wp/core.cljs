@@ -5,14 +5,15 @@
   (:require
     [clojure.pprint :refer [pprint]])
   (:require-macros
-    [clj-wp.core :refer [defphp definvokes]]))
+    [clj-wp.core :as m]))
 
 (defn- prn-php-abstract [print-f o]
   (-> o pr-str print-f))
 (defn- pprint-php-abstract [print-f o]
   (-> o pprint with-out-str print-f))
-(defn- log-abstract [s]
-  (js/PHP.foo.__call "log" #js [(.trim s)]))
+(m/defun "function log_abstract($to_log) {
+    syslog(LOG_INFO, trim($to_log));
+  }")
 
 (defn prn-php [s]
   (prn-php-abstract js/print s))
@@ -43,7 +44,8 @@
   (js/PHP.foo.__call "call" #js [f (clj->js (or args ()))]))
 
 ;;play
-(definvokes get-posts)
-(defphp yy [:as x]
+(m/definvokes get-posts)
+(m/defphp yy [:as x]
   (log
     (get-posts {:numberposts 1})))
+

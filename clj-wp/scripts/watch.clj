@@ -10,5 +10,5 @@
    :watch-fn #(slurp "http://localhost:8000")
    :watch-error-fn
    (fn [e]
-     (->> e ex-data :file .getName (sh "say"))
+     ;(->> e ex-data :file .getName (sh "say"))
      (prn e))})
