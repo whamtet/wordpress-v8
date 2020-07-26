@@ -21,7 +21,7 @@ services:
      ports:
        - "8000:80"
      volumes:
-          - ./wordpress_v8:/app/wp-content/plugins/wordpress_v8
+          - ./plugins:/app/wp-content/plugins
           - ./config:/config
      restart: always
      environment:

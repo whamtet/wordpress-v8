@@ -5,7 +5,7 @@
   (:require
     [clojure.pprint :refer [pprint]])
   (:require-macros
-    [clj-wp.core :refer [defphp]]))
+    [clj-wp.core :refer [defphp definvokes]]))
 
 (defn- prn-php-abstract [print-f o]
   (-> o pr-str print-f))
@@ -42,8 +42,8 @@
 (defn invoke [f & args]
   (js/PHP.foo.__call "call" #js [f (clj->js (or args ()))]))
 
-(defn v8-assign [func-name]
-  (js/PHP.foo.__call "v8_assign" #js [func-name]))
-
+;;play
+(definvokes get-posts)
 (defphp yy [:as x]
-  (log x))
+  (log
+    (get-posts {:numberposts 1})))

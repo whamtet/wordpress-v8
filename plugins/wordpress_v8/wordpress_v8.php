@@ -2,8 +2,7 @@
    /*
    Plugin Name: wordpress-v8
    Plugin URI: https://github.com/whamtet/wordpress-v8
-   description: >-
-  Vroom vroom
+   description: Vroom vroom
    Version: 0.1
    Author: whamtet
    Author URI: https://github.com/whamtet
@@ -16,13 +15,8 @@ class AwesomeHelper {
   function log($to_log) {
     syslog(LOG_INFO, $to_log);
   }
-  function v8_assign($funcName) {
-    $toEval = <<<TXT
-    function $funcName() {
-    return v8_args('$funcName', func_get_args());
-    }
-    TXT;
-    eval($toEval);
+  function ev($s) {
+    return eval($s);
   }
 }
 function set_v8() {

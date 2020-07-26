@@ -12,7 +12,7 @@
 (defmacro defexport [symbol]
   `(defn ^:export ~symbol []
      (dorun
-       (map clj-wp.core/v8-assign ~(deref to-export)))))
+       (map clj-wp.eval-php/v8-assign ~(deref to-export)))))
 
 (defmacro definvoke [sym]
   `(def ~sym (fn [& args#] (apply clj-wp.core/invoke ~(-> sym str (.replace "-" "_")) args#))))
