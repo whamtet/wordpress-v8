@@ -12,7 +12,7 @@
 (defn- pprint-php-abstract [print-f o]
   (-> o pprint with-out-str print-f))
 (m/defun "function log_abstract($to_log) {
-    syslog(LOG_INFO, trim($to_log));
+  syslog(LOG_INFO, trim($to_log));
   }")
 
 (defn prn-php [s]
@@ -43,9 +43,14 @@
 (defn invoke [f & args]
   (js/PHP.foo.__call "call" #js [f (clj->js (or args ()))]))
 
+(m/defun "function define_safe($k, $v) {
+  if (!defined($k)) {
+  define($k, $v);
+  }
+  }")
+
 ;;play
 (m/definvokes get-posts)
-(m/defphp yy [:as x]
-  (log
-    (get-posts {:numberposts 1})))
+(m/defphp yy []
+  (define-safe "hi" "there"))
 

@@ -1,5 +1,6 @@
 (ns clj-wp.core)
 
+;; export clojure functions to php
 (def to-export (atom #{}))
 (defmacro defphp [name args & body]
   (swap! to-export conj (str name))
@@ -9,6 +10,7 @@
        (let [~args (clj-wp.core/v8->clj js/PHP.args)]
          ~@body))))
 
+;; import php functions to clojure
 (defmacro definvoke [sym]
   `(def ~sym (fn [& args#] (apply clj-wp.core/invoke ~(-> sym str (.replace "-" "_")) args#))))
 (defmacro definvokes [& syms]
@@ -24,11 +26,13 @@
         (.replace $ "_" "-")
         (symbol $)))
 
+;; export php function to both namespaces
 (defmacro defun [s]
   (let [f-name (f-str->name s)]
     (swap! to-eval assoc f-name s)
     `(definvoke ~f-name)))
 
+;; invoke this in main
 (defmacro defexport [symbol]
   `(defn ^:export ~symbol []
      (dorun

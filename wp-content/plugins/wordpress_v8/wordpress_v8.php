@@ -61,4 +61,6 @@ function v8_args($func, $args) {
 }
 // need to actually define stuff
 set_v8();
+yy();
+log_abstract(hi);
 ?>
